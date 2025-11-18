@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Agriculture Management</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+    <script src="app.js" type="module" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Smart Agriculture Command Center</p>
+        <h1>Regenerative Farm Network</h1>
+      </div>
+      <div class="header-meta">
+        <div>
+          <p>Last sync</p>
+          <strong id="last-sync">—</strong>
+        </div>
+        <div>
+          <p>Weather station</p>
+          <strong id="weather-readout">—</strong>
+        </div>
+        <button id="refresh-dashboard" class="ghost-btn">Refresh data</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="kpi-grid" id="kpi-container"></section>
+
+      <section class="grid two-col">
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Field intelligence</p>
+              <h2>Fields & Crop Health</h2>
+            </div>
+            <div class="controls">
+              <label>
+                Filter crop
+                <select id="crop-filter"></select>
+              </label>
+              <label>
+                Min health
+                <input type="range" id="health-filter" min="0" max="100" value="0" />
+              </label>
+            </div>
+          </header>
+          <div class="field-map" id="field-map"></div>
+          <table class="data-table" id="fields-table"></table>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Live telemetry</p>
+              <h2>Sensor Network</h2>
+            </div>
+            <button class="ghost-btn" id="toggle-sensor-view">Toggle detail</button>
+          </header>
+          <div class="sensor-grid" id="sensor-cards"></div>
+          <div class="chart-block">
+            <header>
+              <h3>7-day moisture forecast</h3>
+              <small>Auto-regressive estimation</small>
+            </header>
+            <canvas id="moisture-chart" height="160"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid two-col">
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Water intelligence</p>
+              <h2>Irrigation Planner</h2>
+            </div>
+            <button class="ghost-btn" id="optimize-water">Optimize by AI</button>
+          </header>
+          <ul class="timeline" id="irrigation-plan"></ul>
+          <form id="irrigation-form" class="inline-form">
+            <select name="field" required></select>
+            <input name="volume" type="number" step="0.1" placeholder="Liters/ha" required />
+            <input name="window" type="text" placeholder="Window e.g. 04:00-05:30" required />
+            <button type="submit">Schedule</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Ops board</p>
+              <h2>Tasks & Workload</h2>
+            </div>
+            <div class="controls">
+              <select id="task-filter">
+                <option value="all">All</option>
+                <option value="open">Open</option>
+                <option value="in_progress">In progress</option>
+                <option value="done">Completed</option>
+              </select>
+            </div>
+          </header>
+          <div class="task-board" id="task-board"></div>
+          <form id="task-form" class="stacked-form">
+            <h3>Create task</h3>
+            <div class="form-row">
+              <input name="title" placeholder="Task title" required />
+              <input name="assignee" placeholder="Owner" required />
+            </div>
+            <div class="form-row">
+              <select name="field" required></select>
+              <input name="due" type="date" required />
+            </div>
+            <textarea name="notes" rows="2" placeholder="Notes"></textarea>
+            <button type="submit">Add task</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Decision support</p>
+              <h2>Adaptive Recommendations</h2>
+            </div>
+          </header>
+          <ul class="recommendations" id="recommendations"></ul>
+        </article>
+
+        <article class="card">
+          <header class="card-header">
+            <div>
+              <p class="eyebrow">Field notes</p>
+              <h2>Observation Log</h2>
+            </div>
+          </header>
+          <ul class="log-list" id="observation-log"></ul>
+          <form id="observation-form" class="stacked-form">
+            <div class="form-row">
+              <select name="field" required></select>
+              <select name="category" required>
+                <option value="pest">Pest</option>
+                <option value="disease">Disease</option>
+                <option value="soil">Soil</option>
+                <option value="weather">Weather</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <textarea name="note" rows="2" placeholder="Observation" required></textarea>
+            <button type="submit">Log observation</button>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>Powered by FarmOps OS · Edge insights refreshed every 15 minutes</p>
+    </footer>
+  </body>
+</html>
+
